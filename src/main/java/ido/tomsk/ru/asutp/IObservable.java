@@ -1,5 +1,5 @@
 package ido.tomsk.ru.asutp;
 
-public class IObservable {
-	void handleEvant(IObserver o) {}
+public interface IObservable {
+	void handleEvent(IObserver o);
 }

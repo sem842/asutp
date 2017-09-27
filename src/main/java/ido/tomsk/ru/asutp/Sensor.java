@@ -30,6 +30,7 @@ public class Sensor
 	}
 	public void setValue(int _value) {
 		this._value = _value;
+		notifyObservables();
 	}
 	public int getMinValue() {
 		return _minValue;
@@ -66,7 +67,7 @@ public class Sensor
 	}
 	public void notifyObservables() {
 		for (IObservable ob: this._observables) {
-			ob.handleEvant(this);
+			ob.handleEvent(this);
 		}
 	}
 }
