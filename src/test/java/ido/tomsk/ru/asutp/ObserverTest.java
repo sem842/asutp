@@ -3,7 +3,7 @@ package ido.tomsk.ru.asutp;
 import junit.framework.TestCase;
 class SensorSubscriber implements IObservable
 {
-	private int _value;
+	private int _value = 0;
 	public int getTestValue() {
 		return this._value;
 	}
