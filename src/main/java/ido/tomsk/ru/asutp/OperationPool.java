@@ -1,12 +1,12 @@
 package ido.tomsk.ru.asutp;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class OperationPool {
 	private List<Alarm> _alarms;
 	public OperationPool() {
-		this._alarms = new ArrayList<Alarm>();
+		this._alarms = new CopyOnWriteArrayList<Alarm>();
 	}
 	public List<Alarm> alarms() {
 		return this._alarms;

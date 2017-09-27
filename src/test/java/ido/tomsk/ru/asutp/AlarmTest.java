@@ -34,11 +34,11 @@ public class AlarmTest extends TestCase {
 		System.out.println(p.alarms().get(0));
 		System.out.println(p.alarms().get(0));
 		assertEquals(p.alarms().size(), 2);
-		p.cvitByListIndex(0);
+		p.cvitByListIndex(1);
 		assertEquals(alarmsAmount(p, 1, true, true), 1);
-		/*p.cvitByListIndex(0);
+		p.cvitByListIndex(0);
 		s.setValue(50);
-		assertEquals(p.alarms().size(), 1);*/
+		assertEquals(p.alarms().size(), 0);
 	}
 	private int alarmsAmount(OperationPool p,
 			 				 int id, 
@@ -47,8 +47,8 @@ public class AlarmTest extends TestCase {
 		int res = 0;
 		for (Alarm a: p.alarms()) {
 			if (a.getId() == id &&
-					a.isActive() == isActive &&
-					a.isCvited() == isCvited) {
+				a.isActive() == isActive &&
+				a.isCvited() == isCvited) {
 				res++;
 			}
 		}
