@@ -3,9 +3,13 @@ package ido.tomsk.ru.asutp;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
  * Hello world!
@@ -41,8 +45,12 @@ public class App
     	return f;
     }
     public App() {
-    	JPanel panel = new SensorPanel();
+    	ApplicationContext ctx = new AnnotationConfigApplicationContext(AppContext.class);
+    	List<Sensor> sensors = (List<Sensor>) ctx.getBean("sensors");
+    	List<BasicRender> renders = (List<BasicRender>) ctx.getBean("renders");
+    	JPanel panel = new SensorPanel(renders);
     	this.frame = this.initFrame(panel);
-    	
+    	EmulationThread eT = new EmulationThread(sensors, panel);
+    	eT.start();
     }
 }
