@@ -1,10 +1,13 @@
 package ido.tomsk.ru.asutp;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.function.Function;
 
-public class Alarm implements IObservable {
+public class Alarm implements IObservable, IObserver {
+	private List<IObservable> _observables;
 	private int _id; //чтобы алгоритм аларма мог пробегать по пулу и искать себя в этом пуле
 	private int _status; //статус: красный, жёлтый, зелёный
 	private Date _aDate; //active date
@@ -12,7 +15,7 @@ public class Alarm implements IObservable {
 	private Date _cDate; //cvited date
 	private Date _kDate; //kill date
 	public Alarm() {
-		
+		this._observables = new ArrayList<IObservable>();
 	}
 	private Alarm(Alarm c) { //private constructor
 		this._oPool = c.getOPool();
@@ -117,6 +120,7 @@ public class Alarm implements IObservable {
 					this._oPool.turnOff(this._id);					
 				}
 			}
+			this.notifyObservables();
 		}
 	}
 	public boolean isActive() {
@@ -127,6 +131,20 @@ public class Alarm implements IObservable {
 	}
 	private boolean isActive(int v) {
 		return this._logicF.apply(v);
+	}
+	@Override
+	public void register(IObservable o) {
+		this._observables.add(o);
+	}
+	@Override
+	public void unregister(IObservable o) {
+		this._observables.remove(o);
+	}
+	@Override
+	public void notifyObservables() {
+		for (IObservable ob: this._observables) {
+			ob.handleEvent(this);
+		}
 	}
 	
 }
