@@ -29,7 +29,9 @@ public class Alarm implements IObservable, IObserver {
 		this._oDate = null;
 		this._cDate = null;
 		this._kDate = null;
+		this._observables = c.getObservables();
 	}
+		
 	private boolean _isActive; //активен или не активен
 	private boolean _isCvited; //квитирован или не квитирован
 	private String _name;
@@ -39,6 +41,9 @@ public class Alarm implements IObservable, IObserver {
 	private Function<Integer, Boolean> _logicF; //принимает int, возвращает bool (лямбда выражения(?))
 	//(v) -> {return v >= 85;}
 		
+	public List<IObservable> getObservables() {
+		return this._observables;
+	}
 	public int getId() {
 		return _id;
 	}
@@ -91,6 +96,7 @@ public class Alarm implements IObservable, IObserver {
 			   calcDate(this._kDate) + " " + this._name;
 	}
 	public void turnOff() {
+		//this.notifyObservables();
 		this._isActive = false;
 		this._oDate = new Date();
 		if (this._isCvited) {
@@ -99,6 +105,7 @@ public class Alarm implements IObservable, IObserver {
 		}
 	}
 	public void setCvited() {
+		//this.notifyObservables();
 		this._isCvited = true;
 		this._cDate = new Date();
 		if (!this._isActive) {
@@ -113,6 +120,7 @@ public class Alarm implements IObservable, IObserver {
 			if (active) {
 				if (!this._oPool.exist(this._id, active)) {
 					Alarm a = new Alarm(this); //вызывается приватный конс-р
+					a.notifyObservables();
 					this._oPool.add(a);
 				}				
 			} else {
@@ -120,7 +128,7 @@ public class Alarm implements IObservable, IObserver {
 					this._oPool.turnOff(this._id);					
 				}
 			}
-			this.notifyObservables();
+			//this.notifyObservables();
 		}
 	}
 	public boolean isActive() {
