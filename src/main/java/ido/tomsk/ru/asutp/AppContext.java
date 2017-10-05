@@ -23,7 +23,7 @@ public class AppContext {
 	}
 	@Bean
 	public DStrategy dStrategy1() {
-		DStrategy s = new DStrategy(15);
+		DStrategy s = new DStrategy(50);
 		return s;
 	}
 	@Bean
@@ -33,7 +33,7 @@ public class AppContext {
 	}
 	@Bean
 	public AStrategy aStrategy1() {
-		AStrategy s = new AStrategy(1);
+		AStrategy s = new AStrategy(10);
 		return s;
 	}
 	@Bean
@@ -66,7 +66,7 @@ public class AppContext {
 		s.register(alarm2());
 		s.setEmulationStrategy(dStrategy1());
 		s.register(render1());
-		s.setValue(0);
+		s.setValue(-1);
 		return s;
 	}
 	@Bean
@@ -81,7 +81,7 @@ public class AppContext {
 		s.register(alarm5());
 		s.register(alarm6());
 		s.register(alarm7());
-		s.setValue(0);
+		s.setValue(1);
 		return s;
 	}
 	@Bean

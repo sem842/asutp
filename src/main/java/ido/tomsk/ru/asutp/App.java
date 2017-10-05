@@ -35,22 +35,28 @@ public class App
     	});
     	
     }
-    private JFrame initFrame(JPanel panel)
+    private JFrame initFrame(JPanel panel, JPanel alarmPanel)
     {
     	JFrame f = new JFrame();
     	f.setBounds(100, 100, 500, 500);
     	f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	panel.setBackground(Color.lightGray);
+    	alarmPanel.setBackground(Color.WHITE);
     	f.getContentPane().add(panel, BorderLayout.CENTER);
+    	f.getContentPane().add(alarmPanel, BorderLayout.NORTH);
     	return f;
     }
     public App() {
     	ApplicationContext ctx = new AnnotationConfigApplicationContext(AppContext.class);
     	List<Sensor> sensors = (List<Sensor>) ctx.getBean("sensors");
     	List<BasicRender> renders = (List<BasicRender>) ctx.getBean("renders");
+    	OperationPool oPool = (OperationPool) ctx.getBean("oPool");
     	JPanel panel = new SensorPanel(renders);
-    	this.frame = this.initFrame(panel);
+    	JPanel alarmPanel = new AlarmPanel(oPool);
+    	this.frame = this.initFrame(panel, alarmPanel);
     	EmulationThread eT = new EmulationThread(sensors, panel);
     	eT.start();
+    	
+    	
     }
 }
