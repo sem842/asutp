@@ -7,7 +7,7 @@ public class AlarmTest extends TestCase {
 		Alarm a = new Alarm();
 		assertNotNull(a);
 		OperationPool p = new OperationPool();
-		HistoryPool h = new HistoryPool();
+		HistoryPool h = new HistoryPool("d://history_alarm.log");
 		assertNotNull(p);
 		assertNotNull(h);
 		

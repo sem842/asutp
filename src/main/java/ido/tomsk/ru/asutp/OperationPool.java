@@ -44,6 +44,7 @@ public class OperationPool {
 			if (a.getId() == id && a.isActive()) {
 				a.turnOff();
 				if (a.isCvited()) {
+					this.removeFromModelList(a);
 					this._alarms.remove(a);
 				}
 			}
@@ -53,8 +54,13 @@ public class OperationPool {
 		Alarm a = this._alarms.get(index);
 		a.setCvited();
 		if (!a.isActive()) {
+			this.removeFromModelList(a);
 			this._alarms.remove(index);
+			
 		}
+	}
+	private void removeFromModelList(Alarm a) {
+		this._list_model_alarms.removeElement(a);
 	}
 	public boolean exist(int id, boolean isActive) {
 		boolean res = false;

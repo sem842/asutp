@@ -11,16 +11,22 @@ public class AlarmListRender extends DefaultListCellRenderer {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;	
+	private static final long serialVersionUID = 1L;
+	private boolean _flag = false;
 	@Override	
 	public Component getListCellRendererComponent(JList list, 
 			Object value, int index, boolean isSelected, boolean cellHasFocus) {
 			 Alarm a = (Alarm) value;
 			 Component cellRenderer = super.getListCellRendererComponent(list, a, index, isSelected, cellHasFocus);
 			 Color alarmColor = this.calcColor(a);
+			 alarmColor = this.calcBlink(a, alarmColor);
 			 cellRenderer.setForeground(alarmColor);
 			 cellRenderer.setBackground(Color.BLACK);
 			 return cellRenderer;
+	}
+	
+	public void toggleBlinkFlag() {
+		this._flag = ! this._flag;
 	}
 	
 	public Color calcColor(Alarm a) {
@@ -57,5 +63,12 @@ public class AlarmListRender extends DefaultListCellRenderer {
 			}
 		}
 		return _c;
+	}
+	
+	public Color calcBlink(Alarm a, Color alarmColor) {
+		if (a.isActive() && this._flag) {
+				return Color.BLACK;				 
+		}
+		return alarmColor;
 	}
 }

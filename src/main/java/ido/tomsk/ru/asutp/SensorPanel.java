@@ -18,5 +18,4 @@ public class SensorPanel extends JPanel {
 			render.draw(g);
 		}
 	}
-	
 }

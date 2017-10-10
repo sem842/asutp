@@ -18,7 +18,7 @@ public class AppContext {
 	}
 	@Bean
 	public HistoryPool hPool() {
-		HistoryPool p = new HistoryPool();
+		HistoryPool p = new HistoryPool("d://history_alarm.log");
 		return p;
 	}
 	@Bean
